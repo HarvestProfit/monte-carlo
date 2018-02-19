@@ -7,7 +7,7 @@ import rootSaga from '../sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const composeEnhancers = composeWithDevTools({ maxAge: 150 });
+const composeEnhancers = composeWithDevTools({});
 
 const store = createStore(
   rootReducer,
