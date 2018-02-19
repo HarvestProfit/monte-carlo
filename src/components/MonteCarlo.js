@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -12,10 +13,13 @@ export default class MonteCarlo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // Dates
       startDate: moment(),
       endDate: moment().add(1, 'month'),
-      volatility: '0.00',
+      // Set Values
+      iterations: '10',
       price: '3.00',
+      volatility: '0.00',
     };
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
     this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -37,6 +41,15 @@ export default class MonteCarlo extends Component {
 
   handlePriceChange(price) {
     this.setState({ price });
+  }
+
+  handleStartCalculations() {
+    this.props.startMonteCarlo(
+      _.toNumber(this.state.iterations),
+      _.toNumber(this.state.price),
+      _.toNumber(this.state.volatility),
+      this.state.endDate.diff(this.state.startDate, 'days') + 1,
+    );
   }
 
   render() {
@@ -62,7 +75,7 @@ export default class MonteCarlo extends Component {
             />
           </div>
           <div className="col-12 mt-5">
-            <button className="btn btn-primary btn-block">
+            <button className="btn btn-primary btn-block" onClick={() => this.handleStartCalculations()}>
               Calculate
             </button>
           </div>
