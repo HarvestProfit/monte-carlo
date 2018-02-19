@@ -4,10 +4,12 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DateSelector from './montecarlo/DateSelector';
 import Inputs from './montecarlo/Inputs';
+import ResultsTable from './montecarlo/ResultsTable';
 
 export default class MonteCarlo extends Component {
   static propTypes = {
     startMonteCarlo: PropTypes.func.isRequired,
+    iterations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   }
 
   constructor(props) {
@@ -80,6 +82,11 @@ export default class MonteCarlo extends Component {
             </button>
           </div>
         </div>
+        {this.props.iterations.length > 0 && (
+          <div className="row">
+            <ResultsTable iterations={this.props.iterations} />
+          </div>
+        )}
       </div>
     );
   }
