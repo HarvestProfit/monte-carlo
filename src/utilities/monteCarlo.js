@@ -30,15 +30,11 @@ export default class MonteCarlo {
   }
 
   /**
-   * Gets a random number between -1 and 1, that isn't zero.
-   * Zero means the number doesn't change, therefore 1
+   * Gets a random number between -1 and 1.
    * @return {number} The random number between -1 and 1
    */
   static randomNumber() {
     const number = (Math.random() * 10) - 5;
-    if (number === 0) {
-      return 1;
-    }
     return number / 5;
   }
 }

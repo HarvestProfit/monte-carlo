@@ -22,9 +22,10 @@ import {
  * @param {number} price The price to start at
  * @param {number} dailyVolatility The potential daily volatility. NOT annual. DAILY.
  */
-function* runSingleIteration(steps, price, dailyVolatility) {
+function* runSingleIteration(steps, price, dailyVolatility, iteration) {
   const lastPrice = yield MonteCarlo.singleIteration(steps, price, dailyVolatility);
   yield put({ type: ADD_ITERATIONS, payload: [lastPrice] });
+  yield put({ type: PROGRESS_UPDATE, payload: iteration + 1 });
 }
 
 /**
@@ -39,8 +40,7 @@ function* runMonteCarloSimulation(iterations, price, volatility, steps) {
     yield put({ type: PROGRESS_CLEAR });
     yield put({ type: CLEAR_ITERATIONS });
     for (let iteration = 0; iteration < iterations; iteration += 1) {
-      yield call(runSingleIteration, steps, price, volatility);
-      yield put({ type: PROGRESS_UPDATE, payload: iteration + 1 });
+      yield call(runSingleIteration, steps, price, volatility, iteration);
     }
     yield put({ type: END_MONTE_CARLO });
   } catch (error) {
