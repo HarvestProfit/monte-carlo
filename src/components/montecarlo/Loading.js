@@ -7,8 +7,23 @@ export default class Loading extends PureComponent {
     progress: PropTypes.number.isRequired,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      progress: 0,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.iterations !== this.props.iterations) {
+      this.setState({ progress: 0 });
+    } else {
+      this.setState({ progress: (nextProps.progress / nextProps.iterations) * 100 });
+    }
+  }
+
   render() {
-    const progress = (this.props.progress / this.props.iterations) * 100;
+    const { progress } = this.state;
     return (
       <div className="progress mt-5">
         <div
