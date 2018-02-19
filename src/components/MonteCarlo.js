@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import DateSelector from './montecarlo/DateSelector';
 import Inputs from './montecarlo/Inputs';
-import ResultsTable from './montecarlo/ResultsTable';
+import IterationInput from './montecarlo/IterationInput';
+import SubmitButton from './montecarlo/SubmitButton';
+import ResultsTable from './results/ResultsTable';
 
 export default class MonteCarlo extends Component {
   static propTypes = {
     startMonteCarlo: PropTypes.func.isRequired,
     iterations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    progress: PropTypes.number.isRequired,
+    running: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -19,14 +23,17 @@ export default class MonteCarlo extends Component {
       startDate: moment(),
       endDate: moment().add(1, 'month'),
       // Set Values
-      iterations: '10',
+      iterations: '50',
       price: '3.00',
       volatility: '0.00',
     };
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
     this.handleEndDateChange = this.handleEndDateChange.bind(this);
-    this.handleVolatilityChange = this.handleVolatilityChange.bind(this);
+    this.handleIterationChange = this.handleIterationChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.handleVolatilityChange = this.handleVolatilityChange.bind(this);
+
+    this.handleStartCalculations = this.handleStartCalculations.bind(this);
   }
 
   handleStartDateChange(startDate) {
@@ -37,12 +44,16 @@ export default class MonteCarlo extends Component {
     this.setState({ endDate: moment(endDate) });
   }
 
-  handleVolatilityChange(volatility) {
-    this.setState({ volatility });
+  handleIterationChange(iterations) {
+    this.setState({ iterations });
   }
 
   handlePriceChange(price) {
     this.setState({ price });
+  }
+
+  handleVolatilityChange(volatility) {
+    this.setState({ volatility });
   }
 
   handleStartCalculations() {
@@ -75,12 +86,18 @@ export default class MonteCarlo extends Component {
               handlePriceChange={this.handlePriceChange}
               handleVolatilityChange={this.handleVolatilityChange}
             />
+            <IterationInput
+              iterations={this.state.iterations}
+              handleIterationChange={this.handleIterationChange}
+            />
           </div>
-          <div className="col-12 mt-5">
-            <button className="btn btn-primary btn-block" onClick={() => this.handleStartCalculations()}>
-              Calculate
-            </button>
-          </div>
+          <SubmitButton
+            handleStartCalculations={this.handleStartCalculations}
+            iterationLength={_.toNumber(this.state.iterations)}
+            progress={this.props.progress}
+            running={this.props.running}
+          />
+          <span>{this.props.progress} out of {this.state.iterations} Complete</span>
         </div>
         {this.props.iterations.length > 0 && (
           <div className="row">

@@ -13,6 +13,7 @@ function mapStateToProps(state) {
   return {
     iterations: state.iterations,
     progress: state.progress,
+    running: state.running,
   };
 }
 
