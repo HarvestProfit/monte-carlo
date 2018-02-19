@@ -6,6 +6,7 @@ import DateSelector from './montecarlo/DateSelector';
 import Inputs from './montecarlo/Inputs';
 import IterationInput from './montecarlo/IterationInput';
 import SubmitButton from './montecarlo/SubmitButton';
+import Loading from './montecarlo/Loading';
 import ResultsTable from './results/ResultsTable';
 
 export default class MonteCarlo extends Component {
@@ -91,13 +92,19 @@ export default class MonteCarlo extends Component {
               handleIterationChange={this.handleIterationChange}
             />
           </div>
-          <SubmitButton
-            handleStartCalculations={this.handleStartCalculations}
-            iterationLength={_.toNumber(this.state.iterations)}
+          <div className="row">
+            <SubmitButton
+              handleStartCalculations={this.handleStartCalculations}
+              iterationLength={_.toNumber(this.state.iterations)}
+              progress={this.props.progress}
+              running={this.props.running}
+            />
+          </div>
+          <Loading
+            iterations={_.toNumber(this.state.iterations)}
             progress={this.props.progress}
             running={this.props.running}
           />
-          <span>{this.props.progress} out of {this.state.iterations} Complete</span>
         </div>
         {this.props.iterations.length > 0 && (
           <div className="row">
