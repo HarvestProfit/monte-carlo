@@ -1,0 +1,2 @@
+export const PROGRESS_UPDATE = 'PROGRESS_UPDATE';
+export const PROGRESS_CLEAR = 'PROGRESS_CLEAR';
