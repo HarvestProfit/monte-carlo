@@ -1,17 +1,20 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
 import store from '../store';
 
 import MonteCarlo from './MonteCarlo';
 
+import whiteLogo from '../utilities/assets/logo-white-100.png';
+
 const App = () => (
   <Provider store={store}>
     <div>
       <header className="navbar navbar-light bg-dark">
-        <a className="navbar-brand text-light" href="https://www.harvestprofit.com">
-          Harvest Profit
+        <a className="navbar-brand" href="https://www.harvestprofit.com">
+          <img className="img-fluid" alt="Harvest Profit" src={whiteLogo} height="30" width="30" />
         </a>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item active text-light">
@@ -20,7 +23,9 @@ const App = () => (
         </ul>
       </header>
       <div className="container">
-        <MonteCarlo />
+        <Router>
+          <Route exact path="/" component={MonteCarlo} />
+        </Router>
       </div>
       <footer className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
         <ul className="navbar-nav">
