@@ -1,4 +1,3 @@
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
@@ -25,12 +24,7 @@ const IterationGraph = props => (
       />
       <VictoryAxis />
       <VictoryLine
-        animate={{
-          onLoad: { duration: 500, easing: 'linearIn' },
-          onEnter: { duration: 500, easing: 'bounce' },
-        }}
         data={props.graphData}
-        labels={d => `$${d.value.toFixed(3)} on ${moment(d.date).format('L')}`}
         labelComponent={<VictoryTooltip />}
         x="date"
         y="value"

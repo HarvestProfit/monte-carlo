@@ -41,10 +41,14 @@ export default class Iterations extends Component {
     const selectedIteration = iterations[this.state.iteration];
     const graphData = selectedIteration.map((iteration, index) => {
       const date = moment(start).add(index + 1, 'days');
-      return {
+      const data = {
         date: date.toDate(),
         value: iteration,
       };
+      if (selectedIteration.length < 100) {
+        data.label = `$${iteration.toFixed(3)} on ${date.format('L')}`;
+      }
+      return data;
     });
 
     return (
