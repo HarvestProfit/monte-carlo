@@ -7,12 +7,12 @@ import Inputs from './montecarlo/Inputs';
 import IterationInput from './montecarlo/IterationInput';
 import SubmitButton from './montecarlo/SubmitButton';
 import Loading from './montecarlo/Loading';
-import ResultsTable from './results/ResultsTable';
+import Navigation from './utilities/Navigation';
 
 export default class MonteCarlo extends Component {
   static propTypes = {
+    setStartDate: PropTypes.func.isRequired,
     startMonteCarlo: PropTypes.func.isRequired,
-    iterations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     progress: PropTypes.number.isRequired,
     running: PropTypes.bool.isRequired,
   }
@@ -26,7 +26,7 @@ export default class MonteCarlo extends Component {
       // Set Values
       iterations: '50',
       price: '3.00',
-      volatility: '0.00',
+      volatility: '12.55',
     };
     this.handleStartDateChange = this.handleStartDateChange.bind(this);
     this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -58,6 +58,7 @@ export default class MonteCarlo extends Component {
   }
 
   handleStartCalculations() {
+    this.props.setStartDate(this.state.startDate.toDate());
     this.props.startMonteCarlo(
       _.toNumber(this.state.iterations),
       _.toNumber(this.state.price),
@@ -69,12 +70,9 @@ export default class MonteCarlo extends Component {
   render() {
     return (
       <div>
-        <div className="jumbotron">
-          <h1>Monte Carlo Simulator</h1>
-          <p className="lead">
-            This is a simple Monte Carlo simulator. Please read these instructions before use.
-          </p>
-          <div className="row mt-5">
+        <div className="mb-5">
+          <Navigation current="/" />
+          <div className="row mt-5 px-3">
             <DateSelector
               endDate={this.state.endDate}
               startDate={this.state.startDate}
@@ -106,11 +104,6 @@ export default class MonteCarlo extends Component {
             running={this.props.running}
           />
         </div>
-        {this.props.iterations.length > 0 && (
-          <div className="row">
-            <ResultsTable iterations={this.props.iterations} />
-          </div>
-        )}
       </div>
     );
   }

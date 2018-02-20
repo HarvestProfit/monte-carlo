@@ -34,7 +34,9 @@ export default class Loading extends PureComponent {
           aria-valuemax="100"
           style={{ width: `${progress.toFixed(2)}%` }}
         >
-          {this.props.progress} out of {this.props.iterations}
+          {progress > 0 && (
+            <span>{this.props.progress} out of {this.props.iterations}</span>
+          )}
         </div>
       </div>
     );

@@ -6,6 +6,7 @@ import faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
 import store from '../store';
 
 import MonteCarlo from './MonteCarlo';
+import Iterations from './Iterations';
 
 import whiteLogo from '../utilities/assets/logo-white-100.png';
 
@@ -23,8 +24,17 @@ const App = () => (
         </ul>
       </header>
       <div className="container">
+        <div className="jumbotron">
+          <h1>Monte Carlo Simulator</h1>
+          <p className="lead">
+            This is a simple Monte Carlo simulator. Please read these instructions before use.
+          </p>
+        </div>
         <Router>
-          <Route exact path="/" component={MonteCarlo} />
+          <div>
+            <Route exact path="/" component={MonteCarlo} />
+            <Route path="/iterations" component={Iterations} />
+          </div>
         </Router>
       </div>
       <footer className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">

@@ -23,7 +23,7 @@ import {
  * @param {number} dailyVolatility The potential daily volatility. NOT annual. DAILY.
  */
 function* runSingleIteration(steps, price, dailyVolatility, iteration) {
-  const lastPrice = yield MonteCarlo.singleIteration(steps, price, dailyVolatility);
+  const lastPrice = yield call(MonteCarlo.singleIteration, steps, price, dailyVolatility);
   yield put({ type: ADD_ITERATIONS, payload: [lastPrice] });
   yield put({ type: PROGRESS_UPDATE, payload: iteration + 1 });
 }
