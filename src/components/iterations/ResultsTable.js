@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 const ResultsTable = (props) => {
+  const { selected, iterations, setIteration } = props;
   const row = (array, index) => (
-    <tr key={index} onClick={() => props.setIteration(index)}>
+    <tr
+      className={selected === index ? 'table-success' : ''}
+      key={index}
+      onClick={() => setIteration(index)}
+    >
       <th scope="row">{index + 1}</th>
       <td>${_.max(array).toFixed(3)}</td>
       <td>${_.min(array).toFixed(3)}</td>
@@ -23,7 +28,7 @@ const ResultsTable = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.iterations.map((iteration, index) => row(iteration, index))}
+          {iterations.map((iteration, index) => row(iteration, index))}
         </tbody>
       </table>
     </div>
@@ -31,6 +36,7 @@ const ResultsTable = (props) => {
 };
 
 ResultsTable.propTypes = {
+  selected: PropTypes.number.isRequired,
   iterations: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   setIteration: PropTypes.func.isRequired,
 };

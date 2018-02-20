@@ -60,6 +60,7 @@ export default class Iterations extends Component {
         <p className="lead text-center">Click on an Iteration to View Summary</p>
         <ResultsTable
           iterations={this.props.iterations}
+          selected={this.state.iteration}
           setIteration={this.setIteration}
         />
       </div>
