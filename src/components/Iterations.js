@@ -2,6 +2,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import IterationGraph from './iterations/IterationGraph';
+import IterationSummary from './iterations/IterationSummary';
 import NoIterations from './iterations/NoIterations';
 import ResultsTable from './iterations/ResultsTable';
 import Navigation from './utilities/Navigation';
@@ -55,6 +56,7 @@ export default class Iterations extends Component {
       <div>
         <Navigation current="/iterations" />
         <IterationGraph graphData={graphData} />
+        <IterationSummary index={this.state.iteration + 1} iteration={selectedIteration} />
         <p className="lead text-center">Click on an Iteration to View Summary</p>
         <ResultsTable
           iterations={this.props.iterations}
