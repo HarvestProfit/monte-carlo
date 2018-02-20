@@ -2,6 +2,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import IterationGraph from './iterations/IterationGraph';
+import NoIterations from './iterations/NoIterations';
 import ResultsTable from './iterations/ResultsTable';
 import Navigation from './utilities/Navigation';
 
@@ -32,7 +33,7 @@ export default class Iterations extends Component {
       return (
         <div>
           <Navigation current="/iterations" />
-          <p>Dude, run the program</p>
+          <NoIterations />
         </div>
       );
     }
