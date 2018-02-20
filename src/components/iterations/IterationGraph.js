@@ -13,7 +13,6 @@ import {
 const IterationGraph = props => (
   <div className="col-12 col-sm-8 offset-sm-2">
     <VictoryChart
-      animate={{ duration: 100 }}
       containerComponent={<VictoryVoronoiContainer />}
       domainPadding={20}
       height={200}
@@ -22,23 +21,19 @@ const IterationGraph = props => (
     >
       <VictoryAxis
         dependentAxis
-        tickFormat={y => `$${y.toFixed(3)}`}
+        tickFormat={y => `$${y.toFixed(2)}`}
       />
       <VictoryAxis />
       <VictoryLine
+        animate={{
+          onLoad: { duration: 1000, easing: 'linearIn' },
+          onEnter: { duration: 1000, easing: 'bounce' },
+        }}
         data={props.graphData}
-        labels={d => `$${d.value.toFixed(2)} on ${moment(d.date).format('L')}`}
+        labels={d => `$${d.value.toFixed(3)} on ${moment(d.date).format('L')}`}
         labelComponent={<VictoryTooltip />}
         x="date"
         y="value"
-        animate={{
-          onExit: {
-            duration: 100,
-            before: () => ({
-                _y: 0,
-            }),
-          },
-        }}
       />
     </VictoryChart>
   </div>
