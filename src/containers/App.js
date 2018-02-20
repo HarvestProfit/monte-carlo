@@ -37,13 +37,11 @@ const App = () => (
           </div>
         </Router>
       </div>
-      <footer className="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            Made with <FontAwesomeIcon icon={faHeart} /> by <a href="https://www.harvestprofit.com">Harvest Profit</a>
-          </li>
-        </ul>
-        <a href="https://github.com/HarvestProfit/monte-carlo" className="nav-link">
+      <footer className="navbar navbar-light bg-light justify-content-between">
+        <span className="navbar-text">
+          Made with <FontAwesomeIcon icon={faHeart} /> by <a href="https://www.harvestprofit.com">Harvest Profit</a>
+        </span>
+        <a href="https://github.com/HarvestProfit/monte-carlo" className="navbar-link">
           Source Code
         </a>
       </footer>
