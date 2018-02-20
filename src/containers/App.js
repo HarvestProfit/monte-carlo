@@ -5,6 +5,7 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faHeart from '@fortawesome/fontawesome-free-solid/faHeart';
 import store from '../store';
 
+import Analysis from './Analysis';
 import MonteCarlo from './MonteCarlo';
 import Iterations from './Iterations';
 
@@ -34,6 +35,7 @@ const App = () => (
           <div>
             <Route exact path="/" component={MonteCarlo} />
             <Route path="/iterations" component={Iterations} />
+            <Route path="/analysis" component={Analysis} />
           </div>
         </Router>
       </div>

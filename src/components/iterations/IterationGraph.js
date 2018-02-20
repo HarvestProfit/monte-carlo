@@ -26,8 +26,8 @@ const IterationGraph = props => (
       <VictoryAxis />
       <VictoryLine
         animate={{
-          onLoad: { duration: 1000, easing: 'linearIn' },
-          onEnter: { duration: 1000, easing: 'bounce' },
+          onLoad: { duration: 500, easing: 'linearIn' },
+          onEnter: { duration: 500, easing: 'bounce' },
         }}
         data={props.graphData}
         labels={d => `$${d.value.toFixed(3)} on ${moment(d.date).format('L')}`}
