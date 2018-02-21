@@ -42,3 +42,28 @@ export default function standardNormalDistributionYValue(mean, standardDeviation
 
   return firstVariable * secondVariable;
 }
+
+export function getPlotedGraph(mean, standardDeviation) {
+  const points = [];
+  const numberOfPoints = 3;
+  // plots value to the right of the mean
+  for (let i = 1; i < numberOfPoints; i += 1) {
+    const currentPoint = mean + (i * standardDeviation);
+    points.push({
+      xValue: currentPoint,
+      yValue: standardNormalDistributionYValue(mean, standardDeviation, currentPoint),
+    });
+  }
+  for (let i = 1; i < numberOfPoints; i += 1) {
+    const currentPoint = mean - (i * standardDeviation);
+    points.push({
+      xValue: currentPoint,
+      yValue: standardNormalDistributionYValue(mean, standardDeviation, currentPoint),
+    });
+  }
+  points.push({
+    xValue: mean,
+    yValue: standardNormalDistributionYValue(mean, standardDeviation, mean),
+  });
+  return points;
+}
