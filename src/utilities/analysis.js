@@ -13,6 +13,19 @@ function getAverage(array) {
 }
 
 /**
+ * Gets the average of an array of numbers.
+ * Intended for samples representing a larger population.
+ * @param {[number]} array Array of numbers
+ * @return {number} Mean of the array of numbers
+ */
+function getSampleAverage(array) {
+  if (array.length - 1 < 1) {
+    return 0;
+  }
+  return _.sum(array) / (array.length - 1);
+}
+
+/**
  * Gets the standard deviation from an array of numbers
  * @param {[number]} array Array of numbers
  * @return {number} Standard Deviation of the array of numbers
@@ -20,7 +33,7 @@ function getAverage(array) {
 function getStandardDeviation(array) {
   const average = getAverage(array);
   const variances = _.map(array, v => (v - average) ** 2);
-  const variance = getAverage(variances);
+  const variance = getSampleAverage(variances);
   return Math.sqrt(variance);
 }
 
@@ -84,7 +97,7 @@ export default function analysis(iterations) {
     getMinFromSingleIteration,
   )) / iterations.length;
 
-  // // Get the maximum avgerage
+  // // Get the maximum average
   data.maximum.average = _.sumBy(
     iterations,
     getMaxFromSingleIteration,
@@ -96,25 +109,25 @@ export default function analysis(iterations) {
     getMaxFromSingleIteration,
   )) / iterations.length;
 
-  // // Get the maximum avgerage
+  // // Get the average average
   data.average.average = _.sumBy(
     iterations,
     getAverageFromSingleIteration,
   ) / iterations.length;
 
-  // // Get the maxiumum std. dev.
+  // // Get the average std. dev.
   data.average.standardDeviation = getStandardDeviation(_.map(
     iterations,
     getAverageFromSingleIteration,
   )) / iterations.length;
 
-  // // Get the maximum avgerage
+  // // Get the last average
   data.last.average = _.sumBy(
     iterations,
     getLastFromSingleIteration,
   ) / iterations.length;
 
-  // // Get the maxiumum std. dev.
+  // // Get the last std. dev.
   data.last.standardDeviation = getStandardDeviation(_.map(
     iterations,
     getLastFromSingleIteration,
