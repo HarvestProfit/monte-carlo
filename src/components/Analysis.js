@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -28,24 +29,47 @@ export default class Analysis extends Component {
   };
 
   componentWillMount() {
+    if (_.isEmpty(this.props.analysis) || !this.props.analysis.loading) {
+      this.startAnalysis();
+    }
+  }
+
+  startAnalysis() {
     this.props.startAnalysis();
   }
 
   render() {
     const { analysis } = this.props;
+    // If loading
     if (analysis.loading) {
       return (
         <div>
           <Navigation current="/analysis" />
           <div className="col-12 text-center py-5 my-5">
             <p className="lead">
-              The analysis page has yet to be implemented.
+              Loading...
             </p>
             <p>Return back to the <Link to="/" href="/">Parameters Page</Link></p>
           </div>
         </div>
       );
     }
+
+    // Not loading, but empty
+    if (!this.props.analysis.average.average) {
+      return (
+        <div>
+          <Navigation current="/analysis" />
+          <div className="col-12 text-center py-5 my-5">
+            <p className="lead">
+              There&apos;s nothing to analyze yet!
+            </p>
+            <p>Return back to the <Link to="/" href="/">Parameters Page</Link></p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div>
         <Navigation current="/analysis" />
