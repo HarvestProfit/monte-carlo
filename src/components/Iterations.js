@@ -57,9 +57,11 @@ export default class Iterations extends Component {
         <Navigation current="/iterations" />
         <IterationGraph graphData={graphData} />
         <IterationSummary index={this.state.iteration + 1} iteration={selectedIteration} />
-        <p className="lead text-center">Click on an Iteration to View Summary</p>
+        <p className="lead text-center">
+          Click on an Iteration to View Summary. Only viewing 50 of {this.props.iterations.length}
+        </p>
         <ResultsTable
-          iterations={this.props.iterations}
+          iterations={this.props.iterations.slice(0, 50)}
           selected={this.state.iteration}
           setIteration={this.setIteration}
         />
