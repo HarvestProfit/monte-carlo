@@ -60,7 +60,7 @@ function* runMonteCarloSimulation(iterations, price, volatility, steps) {
       for (let loop = 0; loop < iterationsToRun; loop += 1) {
         const results = yield call(loopThroughIterations, 5000, steps, price, volatility);
         yield put({ type: ADD_ITERATIONS, payload: results });
-        yield put({ type: PROGRESS_UPDATE, payload: 5000 * loop });
+        yield put({ type: PROGRESS_UPDATE, payload: 5000 * (loop + 1) });
       }
       // Get the remaining iterations
       const finalResults = yield call(
