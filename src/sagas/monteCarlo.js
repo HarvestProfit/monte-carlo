@@ -37,7 +37,7 @@ function runSingleIteration(steps, price, dailyVolatility) {
 function loopThroughIterations(iterations, steps, price, volatility) {
   const results = [];
   for (let iteration = 0; iteration < iterations; iteration += 1) {
-    results.push(runSingleIteration(steps, price, volatility, iteration));
+    results.push(runSingleIteration(steps, price, volatility));
   }
   return results;
 }
@@ -72,7 +72,7 @@ function* runMonteCarloSimulation(iterations, price, volatility, steps) {
       yield put({ type: ADD_ITERATIONS, payload: finalResults });
       yield put({ type: PROGRESS_UPDATE, payload: iterations });
     } else {
-      const results = yield call(loopThroughIterations, iterations, price, volatility, steps);
+      const results = yield call(loopThroughIterations, iterations, steps, price, volatility);
       yield put({ type: ADD_ITERATIONS, payload: results });
       yield put({ type: PROGRESS_UPDATE, payload: iterations });
     }

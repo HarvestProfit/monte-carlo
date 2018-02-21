@@ -57,6 +57,12 @@ export default class Analysis extends Component {
           <p>
             {this.props.analysis.average && this.props.analysis.average.average ? this.props.analysis.average.average.toString() : 'Calculating'}
           </p>
+          <p className="lead">
+            and the standard deviation of the average is:
+          </p>
+          <p>
+            {this.props.analysis.average && this.props.analysis.average.standardDeviation ? this.props.analysis.average.standardDeviation.toString() : 'Calculating'}
+          </p>
           <p>Return back to the <Link to="/" href="/">Parameters Page</Link></p>
         </div>
       </div>
