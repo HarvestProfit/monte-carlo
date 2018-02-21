@@ -3,7 +3,8 @@ import { END_ANALYSIS } from '../actions/analysis';
 const initialState = {
   average: {},
   maximum: {},
-  minimums: {},
+  minimum: {},
+  last: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -11,9 +12,7 @@ export default function reducer(state = initialState, action) {
     case END_ANALYSIS:
       return {
         ...state,
-        average: action.average,
-        maximum: action.maximum,
-        minimum: action.minimum,
+        ...action.payload,
       };
     default:
       return state;
