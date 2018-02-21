@@ -63,6 +63,42 @@ export default class Analysis extends Component {
           <p>
             {this.props.analysis.average && this.props.analysis.average.standardDeviation ? this.props.analysis.average.standardDeviation.toString() : 'Calculating'}
           </p>
+          <p className="lead">
+            The average of the maximum is:
+          </p>
+          <p>
+            {this.props.analysis.maximum && this.props.analysis.maximum.average ? this.props.analysis.maximum.average.toString() : 'Calculating'}
+          </p>
+          <p className="lead">
+            and the standard deviation of the maximum is:
+          </p>
+          <p>
+            {this.props.analysis.maximum && this.props.analysis.maximum.standardDeviation ? this.props.analysis.maximum.standardDeviation.toString() : 'Calculating'}
+          </p>
+          <p className="lead">
+            The average of the minimum is:
+          </p>
+          <p>
+            {this.props.analysis.minimum && this.props.analysis.minimum.average ? this.props.analysis.minimum.average.toString() : 'Calculating'}
+          </p>
+          <p className="lead">
+            and the standard deviation of the minimum is:
+          </p>
+          <p>
+            {this.props.analysis.minimum && this.props.analysis.minimum.standardDeviation ? this.props.analysis.minimum.standardDeviation.toString() : 'Calculating'}
+          </p>
+          <p className="lead">
+            The average of the last price is:
+          </p>
+          <p>
+            {this.props.analysis.last && this.props.analysis.last.average ? this.props.analysis.last.average.toString() : 'Calculating'}
+          </p>
+          <p className="lead">
+            and the standard deviation of the last price is:
+          </p>
+          <p>
+            {this.props.analysis.last && this.props.analysis.last.standardDeviation ? this.props.analysis.last.standardDeviation.toString() : 'Calculating'}
+          </p>
           <p>Return back to the <Link to="/" href="/">Parameters Page</Link></p>
         </div>
       </div>
