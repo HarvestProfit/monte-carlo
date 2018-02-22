@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Navigation from './utilities/Navigation';
 import StandardDistributionGraph from './analysis/StandardDistributionGraph';
 import PlotGraph from '../utilities/PlotGraph';
+import { calculateZScore, getZPercent} from '../utilities/analysis';
 
 export default class Analysis extends Component {
   static propTypes = {
@@ -96,29 +97,47 @@ export default class Analysis extends Component {
     const lowBoundIsValid = _.isFinite(_.toNumber(lower)) && lower !== '';
 
     let maxOverlayData = [];
+    let lastOverLayData = [];
+    let highBoundCoverage = 0;
     if (highBoundIsValid) {
       maxOverlayData = PlotGraph.plotGraphAbove(
         _.toNumber(higher),
         this.props.analysis.maximum.average,
         this.props.analysis.maximum.standardDeviation,
       );
-    }
-
-    let minOverlayData = [];
-    if (lowBoundIsValid) {
-      minOverlayData = PlotGraph.plotGraphBelow(
-        _.toNumber(lower),
+      lastOverLayData = PlotGraph.plotGraphAbove(
+        _.toNumber(higher),
+        this.props.analysis.last.average,
+        this.props.analysis.last.standardDeviation,
+      );
+      const highBoundZ = calculateZScore(
+        _.toNumber(higher),
         this.props.analysis.maximum.average,
         this.props.analysis.maximum.standardDeviation,
       );
+      highBoundCoverage = (1 - getZPercent(highBoundZ)) * 100;
     }
 
-    let lastOverlayData = [];
-    if (highBoundIsValid && lowBoundIsValid) {
-      lastOverlayData = [
-        ...maxOverlayData,
-        ...minOverlayData,
-      ];
+    let minOverlayData = [];
+    let lastSecondaryOverlayData = [];
+    let lowBoundCoverage = false;
+    if (lowBoundIsValid) {
+      minOverlayData = PlotGraph.plotGraphBelow(
+        _.toNumber(lower),
+        this.props.analysis.minimum.average,
+        this.props.analysis.minimum.standardDeviation,
+      );
+      lastSecondaryOverlayData = PlotGraph.plotGraphBelow(
+        _.toNumber(lower),
+        this.props.analysis.last.average,
+        this.props.analysis.last.standardDeviation,
+      );
+      const lowBoundZ = calculateZScore(
+        _.toNumber(lower),
+        this.props.analysis.minimum.average,
+        this.props.analysis.minimum.standardDeviation,
+      );
+      lowBoundCoverage = getZPercent(lowBoundZ) * 100;
     }
 
     return (
@@ -153,19 +172,11 @@ export default class Analysis extends Component {
               this.props.analysis.last.average,
               this.props.analysis.last.standardDeviation,
             )}
-            overlayData={lastOverlayData}
+            overlayData={lastOverLayData}
+            secondaryOverlayData={lastSecondaryOverlayData}
           />
           <p className="lead">
-            The average of the last price is:
-          </p>
-          <p>
-            ${this.props.analysis.last.average.toString()}
-          </p>
-          <p className="lead">
-            and the standard deviation of the last price is:
-          </p>
-          <p>
-            ${this.props.analysis.last.standardDeviation.toString()}
+            The average of the last price is: ${this.props.analysis.last.average.toFixed(4)} and the standard deviation of the last price is: ${this.props.analysis.last.standardDeviation.toFixed(4)}
           </p>
           <StandardDistributionGraph
             title="Maximum"
@@ -176,17 +187,14 @@ export default class Analysis extends Component {
             overlayData={maxOverlayData}
           />
           <p className="lead">
-            The average of the maximum is:
+            The average of the maximum is: ${this.props.analysis.maximum.average.toFixed(4)} and the standard deviation of the maximum is: ${this.props.analysis.maximum.standardDeviation.toFixed(4)}
           </p>
-          <p>
-            ${this.props.analysis.maximum.average.toString()}
-          </p>
-          <p className="lead">
-            and the standard deviation of the maximum is:
-          </p>
-          <p>
-            ${this.props.analysis.maximum.standardDeviation.toString()}
-          </p>
+          {highBoundCoverage && (
+            <h6>
+              There is a {highBoundCoverage.toFixed(2)}% change your high bound
+              is hit within the maxiumum values, using this data set
+            </h6>
+          )}
           <StandardDistributionGraph
             title="Minimum"
             graphData={PlotGraph.plotGraph(
@@ -196,17 +204,14 @@ export default class Analysis extends Component {
             overlayData={minOverlayData}
           />
           <p className="lead">
-            The average of the minimum is:
+            The average of the minimum is: ${this.props.analysis.minimum.average.toFixed(4)} and the standard deviation of the minimum is ${this.props.analysis.minimum.standardDeviation.toFixed(4)}
           </p>
-          <p>
-            ${this.props.analysis.minimum.average.toString()}
-          </p>
-          <p className="lead">
-            and the standard deviation of the minimum is:
-          </p>
-          <p>
-            ${this.props.analysis.minimum.standardDeviation.toString()}
-          </p>
+          {lowBoundCoverage && (
+            <h6>
+              There is a {lowBoundCoverage.toFixed(2)}% change your high bound
+              is hit within the maxiumum values, using this data set
+            </h6>
+          )}
           <p className="pt-5">
             Return back to the <Link to="/" href="/">Parameters Page</Link>
           </p>

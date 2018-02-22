@@ -42,6 +42,15 @@ const StandardDistributionGraph = props => (
           y="yValue"
         />
       )}
+      {props.secondaryOverlayData.length > 0 && (
+        <VictoryArea
+          data={props.secondaryOverlayData}
+          interpolation="natural"
+          labelComponent={<VictoryTooltip />}
+          x="xValue"
+          y="yValue"
+        />
+      )}
     </VictoryChart>
   </div>
 );
@@ -54,8 +63,17 @@ StandardDistributionGraph.propTypes = {
   overlayData: PropTypes.arrayOf(PropTypes.shape({
     xValue: PropTypes.number,
     yValue: PropTypes.number,
-  })).isRequired,
+  })),
+  secondaryOverlayData: PropTypes.arrayOf(PropTypes.shape({
+    xValue: PropTypes.number,
+    yValue: PropTypes.number,
+  })),
   title: PropTypes.string.isRequired,
+};
+
+StandardDistributionGraph.defaultProps = {
+  overlayData: [],
+  secondaryOverlayData: [],
 };
 
 export default StandardDistributionGraph;
