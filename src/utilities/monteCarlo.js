@@ -12,7 +12,7 @@ export default class MonteCarlo {
     for (let i = 0; i < steps; i += 1) {
       let newPrice = 0;
       while (newPrice <= 0) {
-        newPrice = MonteCarlo.singleIterationStep(price, dailyVolatility);
+        newPrice = MonteCarlo.singleIterationStep(price, dailyVolatility, startPrice);
       }
       iterationValues.push(newPrice);
       price = newPrice;
@@ -26,9 +26,10 @@ export default class MonteCarlo {
    * @param {number} dailyVolatility The potential daily volatility. NOT annual. DAILY.
    * @return {number} The new price
    */
-  static singleIterationStep(lastPrice, dailyVolatility) {
+  static singleIterationStep(lastPrice, dailyVolatility, startPrice) {
     const volatility = MonteCarlo.randomNumber() * dailyVolatility;
-    const price = lastPrice * (1 + volatility);
+    const priceChange = startPrice * (volatility);
+    const price = lastPrice + priceChange;
     return price;
   }
 
