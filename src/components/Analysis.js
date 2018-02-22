@@ -191,7 +191,7 @@ export default class Analysis extends Component {
           </p>
           {highBoundCoverage > 0 && (
             <h6>
-              There is a {highBoundCoverage.toFixed(2)}% change your high bound
+              There is a {highBoundCoverage.toFixed(2)}% chance your high bound
               is hit within the maxiumum values, using this data set
             </h6>
           )}
@@ -208,7 +208,7 @@ export default class Analysis extends Component {
           </p>
           {lowBoundCoverage > 0 && (
             <h6>
-              There is a {lowBoundCoverage.toFixed(2)}% change your high bound
+              There is a {lowBoundCoverage.toFixed(2)}% chance your high bound
               is hit within the minimum values, using this data set
             </h6>
           )}
