@@ -10,7 +10,10 @@ export default class MonteCarlo {
     const iterationValues = [];
     let price = startPrice;
     for (let i = 0; i < steps; i += 1) {
-      const newPrice = MonteCarlo.singleIterationStep(price, dailyVolatility);
+      let newPrice = 0;
+      while (newPrice <= 0) {
+        newPrice = MonteCarlo.singleIterationStep(price, dailyVolatility);
+      }
       iterationValues.push(newPrice);
       price = newPrice;
     }
