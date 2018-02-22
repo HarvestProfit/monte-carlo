@@ -85,53 +85,25 @@ export default function analysis(iterations) {
     average: {},
   };
 
-  // Get the minimum average
-  data.minimum.average = _.sumBy(
-    iterations,
-    getMinFromSingleIteration,
-  ) / iterations.length;
+  // Get the minimum average and std. dev.
+  const minimums = _.map(iterations, getMinFromSingleIteration);
+  data.minimum.average = _.sum(minimums) / minimums.length;
+  data.minimum.standardDeviation = getStandardDeviation(minimums);
 
-  // Get the minimum std. dev.
-  data.minimum.standardDeviation = getStandardDeviation(_.map(
-    iterations,
-    getMinFromSingleIteration,
-  )) / iterations.length;
+  // Get the maximum average and std. dev.
+  const maximums = _.map(iterations, getMaxFromSingleIteration);
+  data.maximum.average = _.sum(maximums) / maximums.length;
+  data.maximum.standardDeviation = getStandardDeviation(maximums);
 
-  // // Get the maximum average
-  data.maximum.average = _.sumBy(
-    iterations,
-    getMaxFromSingleIteration,
-  ) / iterations.length;
+  // Get the average average and std. dev.
+  const averages = _.map(iterations, getAverageFromSingleIteration);
+  data.average.average = _.sum(averages) / averages.length;
+  data.average.standardDeviation = getStandardDeviation(averages);
 
-  // // Get the maxiumum std. dev.
-  data.maximum.standardDeviation = getStandardDeviation(_.map(
-    iterations,
-    getMaxFromSingleIteration,
-  )) / iterations.length;
-
-  // // Get the average average
-  data.average.average = _.sumBy(
-    iterations,
-    getAverageFromSingleIteration,
-  ) / iterations.length;
-
-  // // Get the average std. dev.
-  data.average.standardDeviation = getStandardDeviation(_.map(
-    iterations,
-    getAverageFromSingleIteration,
-  )) / iterations.length;
-
-  // // Get the last average
-  data.last.average = _.sumBy(
-    iterations,
-    getLastFromSingleIteration,
-  ) / iterations.length;
-
-  // // Get the last std. dev.
-  data.last.standardDeviation = getStandardDeviation(_.map(
-    iterations,
-    getLastFromSingleIteration,
-  )) / iterations.length;
+  // Get the last average
+  const lasts = _.map(iterations, getLastFromSingleIteration);
+  data.last.average = _.sum(lasts) / lasts.length;
+  data.last.standardDeviation = getStandardDeviation(lasts);
 
   return data;
 }
