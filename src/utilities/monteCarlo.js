@@ -30,11 +30,15 @@ export default class MonteCarlo {
   }
 
   /**
-   * Gets a random number between -1 and 1.
+   * Gets a random number with a mean of 0 and standard deviation of 1.
+   * @see https://en.wikipedia.org/wiki/Normal_distribution#Generating_values_from_normal_distribution
    * @return {number} The random number between -1 and 1
    */
   static randomNumber() {
-    const number = (Math.random() * 10) - 5;
-    return number / 5;
+    let random = 0;
+    for (let i = 0; i < 12; i += 1) {
+      random += Math.random();
+    }
+    return random - 6;
   }
 }
