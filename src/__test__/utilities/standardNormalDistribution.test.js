@@ -9,10 +9,8 @@ describe('standardNormalDistributionYValue', () => {
 });
 
 describe('getPlotedGraph', () => {
-  // This is a standard normal distribution. Google It.
-  it('return an array with length 7', () => {
+  it('return an array with length 9', () => {
     const array = getPlotedGraph(0, 1);
-    console.log(array);
-    expect(array.length).toEqual(5);
+    expect(array.length).toEqual(9);
   });
 });

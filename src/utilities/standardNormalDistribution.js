@@ -24,8 +24,8 @@ function exponentialValue(mean, standardDeviation, x) {
  * @return {number} The negative exponent value
  */
 function nonExponentialValue(standardDeviation) {
-  const squareRoot = Math.sqrt(2 * Math.PI);
-  return 1 / (standardDeviation * squareRoot);
+  const squareRoot = Math.sqrt(2 * Math.PI * standardDeviation);
+  return squareRoot;
 }
 
 /**
@@ -40,12 +40,12 @@ export default function standardNormalDistributionYValue(mean, standardDeviation
   const firstVariable = nonExponentialValue(standardDeviation);
   const secondVariable = exponentialValue(mean, standardDeviation, x);
 
-  return firstVariable * secondVariable;
+  return secondVariable / firstVariable;
 }
 
 export function getPlotedGraph(mean, standardDeviation) {
   const points = [];
-  const numberOfPoints = 3;
+  const numberOfPoints = 5;
   // plots value to the right of the mean
   for (let i = 1; i < numberOfPoints; i += 1) {
     const currentPoint = mean + (i * standardDeviation);
