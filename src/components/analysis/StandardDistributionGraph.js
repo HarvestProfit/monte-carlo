@@ -22,9 +22,8 @@ const StandardDistributionGraph = props => (
       title={props.title}
     >
       <VictoryAxis
-        fixLabelOverlap
-        tickFormat={x => `$${x.toFixed(3)}`}
-        tickValues={props.graphData.map(d => d.xValue)}
+        label={`${props.title} Distribution`}
+        tickFormat={() => ''}
       />
       <VictoryLine
         data={props.graphData}
