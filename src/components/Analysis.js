@@ -120,7 +120,7 @@ export default class Analysis extends Component {
 
     let minOverlayData = [];
     let lastSecondaryOverlayData = [];
-    let lowBoundCoverage = false;
+    let lowBoundCoverage = 0;
     if (lowBoundIsValid) {
       minOverlayData = PlotGraph.plotGraphBelow(
         _.toNumber(lower),
@@ -189,7 +189,7 @@ export default class Analysis extends Component {
           <p className="lead">
             The average of the maximum is: ${this.props.analysis.maximum.average.toFixed(4)} and the standard deviation of the maximum is: ${this.props.analysis.maximum.standardDeviation.toFixed(4)}
           </p>
-          {highBoundCoverage && (
+          {highBoundCoverage > 0 && (
             <h6>
               There is a {highBoundCoverage.toFixed(2)}% change your high bound
               is hit within the maxiumum values, using this data set
@@ -206,10 +206,10 @@ export default class Analysis extends Component {
           <p className="lead">
             The average of the minimum is: ${this.props.analysis.minimum.average.toFixed(4)} and the standard deviation of the minimum is ${this.props.analysis.minimum.standardDeviation.toFixed(4)}
           </p>
-          {lowBoundCoverage && (
+          {lowBoundCoverage > 0 && (
             <h6>
               There is a {lowBoundCoverage.toFixed(2)}% change your high bound
-              is hit within the maxiumum values, using this data set
+              is hit within the minimum values, using this data set
             </h6>
           )}
           <p className="pt-5">
