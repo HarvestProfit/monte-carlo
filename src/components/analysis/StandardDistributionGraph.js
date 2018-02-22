@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
+  VictoryArea,
   VictoryAxis,
   VictoryChart,
   VictoryLine,
@@ -16,6 +17,7 @@ const StandardDistributionGraph = props => (
       containerComponent={<VictoryVoronoiContainer />}
       domainPadding={20}
       height={200}
+      padding={{ top: 30, bottom: 30 }}
       theme={VictoryTheme.material}
       title={props.title}
     >
@@ -31,6 +33,24 @@ const StandardDistributionGraph = props => (
         x="xValue"
         y="yValue"
       />
+      {props.overlayData.length > 0 && (
+        <VictoryArea
+          data={props.overlayData}
+          interpolation="natural"
+          labelComponent={<VictoryTooltip />}
+          x="xValue"
+          y="yValue"
+        />
+      )}
+      {props.secondaryOverlayData.length > 0 && (
+        <VictoryArea
+          data={props.secondaryOverlayData}
+          interpolation="natural"
+          labelComponent={<VictoryTooltip />}
+          x="xValue"
+          y="yValue"
+        />
+      )}
     </VictoryChart>
   </div>
 );
@@ -40,7 +60,20 @@ StandardDistributionGraph.propTypes = {
     xValue: PropTypes.number,
     yValue: PropTypes.number,
   })).isRequired,
+  overlayData: PropTypes.arrayOf(PropTypes.shape({
+    xValue: PropTypes.number,
+    yValue: PropTypes.number,
+  })),
+  secondaryOverlayData: PropTypes.arrayOf(PropTypes.shape({
+    xValue: PropTypes.number,
+    yValue: PropTypes.number,
+  })),
   title: PropTypes.string.isRequired,
+};
+
+StandardDistributionGraph.defaultProps = {
+  overlayData: [],
+  secondaryOverlayData: [],
 };
 
 export default StandardDistributionGraph;
