@@ -9,35 +9,38 @@ import {
   VictoryVoronoiContainer,
 } from 'victory';
 
-const IterationGraph = props => (
+const StandardDistributionGraph = props => (
   <div className="col-12 col-sm-8 offset-sm-2">
+    <h3 className="pt-4">{props.title}</h3>
     <VictoryChart
       containerComponent={<VictoryVoronoiContainer />}
       domainPadding={20}
       height={200}
-      scale={{ x: 'time' }}
       theme={VictoryTheme.material}
+      title={props.title}
     >
       <VictoryAxis
-        dependentAxis
-        tickFormat={y => `$${y.toFixed(2)}`}
+        fixLabelOverlap
+        tickFormat={x => `$${x.toFixed(3)}`}
+        tickValues={props.graphData.map(d => d.xValue)}
       />
-      <VictoryAxis fixLabelOverlap />
       <VictoryLine
         data={props.graphData}
+        interpolation="natural"
         labelComponent={<VictoryTooltip />}
-        x="date"
-        y="value"
+        x="xValue"
+        y="yValue"
       />
     </VictoryChart>
   </div>
 );
 
-IterationGraph.propTypes = {
+StandardDistributionGraph.propTypes = {
   graphData: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.instanceOf(Date),
-    value: PropTypes.number,
+    xValue: PropTypes.number,
+    yValue: PropTypes.number,
   })).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-export default IterationGraph;
+export default StandardDistributionGraph;
