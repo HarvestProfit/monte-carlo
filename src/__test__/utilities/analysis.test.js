@@ -1,6 +1,6 @@
 import analysis, { calculateZScore, getZPercent } from '../../utilities/analysis';
 
-describe('standardNormalDistributionYValue', () => {
+describe('analysis', () => {
   describe('minimum values', () => {
     // This is a standard normal distribution. Google It.
     it('should correctly calculate the minimum values', () => {
@@ -22,7 +22,7 @@ describe('standardNormalDistributionYValue', () => {
       ];
       const value = analysis(arrayOfArrays);
       expect(value).toHaveProperty('minimum.average', 0);
-      expect(value.minimum.standardDeviation).toBeCloseTo(0.2721655269759087, 10);
+      expect(value.minimum.standardDeviation).toEqual(1);
     });
   });
 
@@ -46,7 +46,7 @@ describe('standardNormalDistributionYValue', () => {
       ];
       const value = analysis(arrayOfArrays);
       expect(value).toHaveProperty('maximum.average', 0);
-      expect(value.maximum.standardDeviation).toBeCloseTo(0.2721655269759087, 10);
+      expect(value.maximum.standardDeviation).toEqual(1);
     });
   });
 
@@ -70,7 +70,7 @@ describe('standardNormalDistributionYValue', () => {
       ];
       const value = analysis(arrayOfArrays);
       expect(value).toHaveProperty('average.average', 0);
-      expect(value.average.standardDeviation).toBeCloseTo(0.2721655269759087, 10);
+      expect(value.average.standardDeviation).toEqual(1);
     });
   });
 
@@ -94,7 +94,7 @@ describe('standardNormalDistributionYValue', () => {
       ];
       const value = analysis(arrayOfArrays);
       expect(value).toHaveProperty('last.average', 0);
-      expect(value.last.standardDeviation).toBeCloseTo(0.2721655269759087, 10);
+      expect(value.last.standardDeviation).toEqual(1);
     });
   });
 });
