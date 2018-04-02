@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  jest:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - monte-carlo-yarn-{{ checksum "yarn.lock" }}
+            - monte-carlo-yarn-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: monte-carlo-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # run jest tests
+      - run:
+          name: Jest Suite
+          command: yarn run coverage
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+      - run:
+          name: Upload Coverage Report
+          command: bash <(curl -s https://codecov.io/bash) -cF javascript
+
+workflows:
+  version: 2
+  jest:
+    jobs:
+      - jest
