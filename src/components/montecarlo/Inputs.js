@@ -14,29 +14,30 @@ const Inputs = (props) => {
       <div className="form-group">
         <label htmlFor="volatility">
           Volatility{!volatilityIsValid ? ' must be a number' : ' as a whole percent (like 12.55)'}
+          <input
+            className={volatilityIsValid ? 'form-control' : 'form-control is-invalid'}
+            id="volatility"
+            onChange={event => props.handleVolatilityChange(event.target.value)}
+            type="text"
+            value={volatility}
+          />
         </label>
-        <input
-          className={volatilityIsValid ? 'form-control' : 'form-control is-invalid'}
-          id="volatility"
-          onChange={event => props.handleVolatilityChange(event.target.value)}
-          type="text"
-          value={volatility}
-        />
         <br />
         <label htmlFor="price">
           Price{!priceIsValid && ' must be a number'}
+          <input
+            className={priceIsValid ? 'form-control' : 'form-control is-invalid'}
+            id="price"
+            name="price"
+            onChange={event => props.handlePriceChange(event.target.value)}
+            type=""
+            value={price}
+          />
         </label>
-        <input
-          className={priceIsValid ? 'form-control' : 'form-control is-invalid'}
-          id="price"
-          onChange={event => props.handlePriceChange(event.target.value)}
-          type=""
-          value={price}
-        />
       </div>
     </div>
   );
-}
+};
 
 Inputs.propTypes = {
   price: PropTypes.string.isRequired,

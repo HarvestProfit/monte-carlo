@@ -12,14 +12,14 @@ const IterationInput = (props) => {
       <div className="form-group">
         <label htmlFor="iterations">
           Iterations{!iterationsIsValid && ' must be a number'}
+          <input
+            className={iterationsIsValid ? 'form-control' : 'form-control is-invalid'}
+            id="iterations"
+            onChange={event => props.handleIterationChange(event.target.value)}
+            type="text"
+            value={iterations}
+          />
         </label>
-        <input
-          className={iterationsIsValid ? 'form-control' : 'form-control is-invalid'}
-          id="iterations"
-          onChange={event => props.handleIterationChange(event.target.value)}
-          type="text"
-          value={iterations}
-        />
       </div>
     </div>
   );
