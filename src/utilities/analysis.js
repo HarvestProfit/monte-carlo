@@ -5,7 +5,7 @@ import _ from 'lodash';
  * @param {[number]} array Array of numbers
  * @return {number} Mean of the array of numbers
  */
-function getAverage(array) {
+export function getAverage(array) {
   if (array.length === 0) {
     return 0;
   }
@@ -18,7 +18,7 @@ function getAverage(array) {
  * @param {[number]} array Array of numbers
  * @return {number} Mean of the array of numbers
  */
-function getSampleAverage(array) {
+export function getSampleAverage(array) {
   if (array.length - 1 < 1) {
     return 0;
   }
@@ -30,7 +30,7 @@ function getSampleAverage(array) {
  * @param {[number]} array Array of numbers
  * @return {number} Standard Deviation of the array of numbers
  */
-function getStandardDeviation(array) {
+export function getStandardDeviation(array) {
   const average = getAverage(array);
   const variances = _.map(array, v => (v - average) ** 2);
   const variance = getSampleAverage(variances);
@@ -42,7 +42,7 @@ function getStandardDeviation(array) {
  * @param {[number]} array Array of numbers representing steps
  * @return {number} The maximum value from the array
  */
-function getMaxFromSingleIteration(array) {
+export function getMaxFromSingleIteration(array) {
   return _.max(array);
 }
 
@@ -50,7 +50,7 @@ function getMaxFromSingleIteration(array) {
  * Gets the minimum from a single iteration of steps
  * @param {[number]} array Array of numbers representing steps
  */
-function getMinFromSingleIteration(array) {
+export function getMinFromSingleIteration(array) {
   return _.min(array);
 }
 
@@ -58,7 +58,7 @@ function getMinFromSingleIteration(array) {
  * Gets the average from a single iteration of steps
  * @param {[number]} array Array of numbers representing steps
  */
-function getAverageFromSingleIteration(array) {
+export function getAverageFromSingleIteration(array) {
   return getAverage(array);
 }
 
@@ -66,7 +66,7 @@ function getAverageFromSingleIteration(array) {
  * Gets the last from a single iteration of steps
  * @param {[number]} array Array of numbers representing steps
  */
-function getLastFromSingleIteration(array) {
+export function getLastFromSingleIteration(array) {
   return array[array.length - 1];
 }
 
@@ -79,10 +79,22 @@ function getLastFromSingleIteration(array) {
  */
 export default function analysis(iterations) {
   const data = {
-    minimum: {},
-    maximum: {},
-    last: {},
-    average: {},
+    minimum: {
+      average: 0,
+      standardDeviation: 0,
+    },
+    maximum: {
+      average: 0,
+      standardDeviation: 0,
+    },
+    last: {
+      average: 0,
+      standardDeviation: 0,
+    },
+    average: {
+      average: 0,
+      standardDeviation: 0,
+    },
   };
 
   // Get the minimum average and std. dev.
