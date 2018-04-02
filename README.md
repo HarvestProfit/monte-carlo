@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/HarvestProfit/monte-carlo/tree/master.svg?style=svg)](https://circleci.com/gh/HarvestProfit/monte-carlo/tree/master) [![codecov](https://codecov.io/gh/HarvestProfit/monte-carlo/branch/master/graph/badge.svg)](https://codecov.io/gh/HarvestProfit/monte-carlo)
+
 # Harvest Profit Monte Carlo Simulator
 
 You can find [this simulator here](https://harvestprofit.github.io/monte-carlo/)
