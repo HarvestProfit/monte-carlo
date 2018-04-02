@@ -16,30 +16,32 @@ const DateSelector = (props) => {
       <div className="form-group">
         <label htmlFor="startDate">
           Start Date
+          <DatePicker
+            className={validStartDate ? 'form-control' : 'form-control is-invalid'}
+            id="startDate"
+            selected={startDate}
+            onChange={props.handleStartDateChange}
+          />
         </label>
-        <DatePicker
-          className={validStartDate ? 'form-control' : 'form-control is-invalid'}
-          id="startDate"
-          selected={startDate}
-          onChange={props.handleStartDateChange}
-        />
         <br />
         <label htmlFor="endDate">
           End Date{!validEndDate && ` must be greater than ${startDate.format('L')}`}
+          <DatePicker
+            className={validEndDate ? 'form-control' : 'form-control is-invalid'}
+            id="endDate"
+            selected={endDate}
+            onChange={props.handleEndDateChange}
+          />
         </label>
-        <DatePicker
-          className={validEndDate ? 'form-control' : 'form-control is-invalid'}
-          id="endDate"
-          selected={endDate}
-          onChange={props.handleEndDateChange}
-        />
       </div>
     </div>
   );
-}
+};
 
 DateSelector.propTypes = {
+  // eslint-disable-next-line
   endDate: PropTypes.object.isRequired,
+  // eslint-disable-next-line
   startDate: PropTypes.object.isRequired,
   handleStartDateChange: PropTypes.func.isRequired,
   handleEndDateChange: PropTypes.func.isRequired,
